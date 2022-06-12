@@ -77,6 +77,9 @@ contract Pair {
 		if(balanceContract0 != 0 && balanceContract1 != 0) {
 			price0 = k / (balanceContract1);
 			price1 = k / (balanceContract0);
+        } elseif(balanceContract0 == 0 && balanceContract1 == 0) {
+        	price0 = 0;
+        	price1 = 0;
         }
 
         reserve0 = balanceContract0;
@@ -85,6 +88,7 @@ contract Pair {
 	}
 
 	function updateK(address _token0, address _token1) public returns (uint) {
+		require(key == 0, 'Locked');
 		uint balance0 = IERC20(_token0).balanceOf(address(this));
         uint balance1 = IERC20(_token1).balanceOf(address(this));
 		if(key == 0) {
@@ -133,8 +137,8 @@ contract Pair {
 
 	    require(amountDelLiq0 > 0 && amountDelLiq1 > 0, 'Minus amount');
 	    burn(lp, _to, liquidity);
-	   	TransferHelper.safeTransfer(_token0, _to, amountDelLiq0);
-	   	TransferHelper.safeTransfer(_token1, _to, amountDelLiq1);
+	   	TransferHelper.safeTransferFrom(_token0, address(this), _to, amountDelLiq0);
+	   	TransferHelper.safeTransferFrom(_token1, address(this), _to, amountDelLiq1);
 
 	    totalSupply -= liquidity;
 	    uint newBalance0 = IERC20(_token0).balanceOf(address(this));
@@ -150,8 +154,15 @@ contract Pair {
 		require(amount0 > 0 || amount1 > 0, 'Zero amount');
 		require(_to != _token0 && _to != _token1, 'Not used address');
 
-		if (amount0 > 0) TransferHelper.safeTransfer(_token0, _to, amount0);
-        if (amount1 > 0) TransferHelper.safeTransfer(_token1, _to, amount1);
+		if (amount0 > 0) {
+			TransferHelper.safeTransferFrom(_token1, msg.sender, address(this), amount0);
+			TransferHelper.safeTransfer(_token0, _to, amount0);
+
+		}
+        if (amount1 > 0) {
+        	TransferHelper.safeTransferFrom(_token0, msg.sender, address(this), amount1);
+        	TransferHelper.safeTransfer(_token1, _to, amount1);
+        }
 
         uint newBalance0 = IERC20(_token0).balanceOf(address(this));
 		uint newBalance1 = IERC20(_token1).balanceOf(address(this));
