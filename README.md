@@ -10,3 +10,6 @@ This repository contains the core smart contracts for the Onda V1 Protocol.
 | Update storage                                                                                   | ✅      |
 | Update price                                                                                                | ✅      |
 | Delete liquidity                                                                                           | ✅      |
+
+Contract address: 
+```0x155A504e9b6D792dD27eC9270aDd158f1A9587Ed (ropsten)```
