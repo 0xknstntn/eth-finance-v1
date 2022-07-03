@@ -25,4 +25,3 @@ This repository contains the smart contracts for the Onda Finance V1 Protocol.
 |------------------------------------------------------------------------------------------------------------|--------|
 | Create pool                                                                                        | ✅      |
 
-
