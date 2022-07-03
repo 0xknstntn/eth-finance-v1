@@ -1,9 +1,9 @@
-# Onda V1 core
-This repository contains the core smart contracts for the Onda V1 Protocol.
+# Onda Finance
+This repository contains the smart contracts for the Onda Finance V1 Protocol.
 
 ## status
 
-| Feature                                                                                                    | Status |
+| Feature Pool                                                                                                   | Status |
 |------------------------------------------------------------------------------------------------------------|--------|
 | Swap ERC20 to ERC20                                                                                        | ✅      |
 | Add liquidity                                                                                              | ✅      |
@@ -11,5 +11,17 @@ This repository contains the core smart contracts for the Onda V1 Protocol.
 | Update price                                                                                                | ✅      |
 | Delete liquidity                                                                                           | ✅      |
 
-Contract address: 
-```0x155A504e9b6D792dD27eC9270aDd158f1A9587Ed (ropsten)```
+
+
+| Feature Router                                                                                                   | Status |
+|------------------------------------------------------------------------------------------------------------|--------|
+| Swap ERC20 to ERC20                                                                                        | ✅      |
+| Add liquidity                                                                                              | ✅      |
+| Delete liquidity                                                                                           | ✅      |
+
+
+
+| Feature Factory                                                                                                   | Status |
+|------------------------------------------------------------------------------------------------------------|--------|
+| Create pool                                                                                        | ✅      |
+
