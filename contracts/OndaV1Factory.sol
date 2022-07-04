@@ -20,12 +20,12 @@ contract OndaV1Factory {
 	function createPool(address _token0, address _token1, uint _fee) public returns(address pair){
 		require(_token0 != _token1, 'Equal address');
 		require((_token0 != address(0)) && (_token1 != address(0)), 'Zero address');
-    	address pair = address(new OndaV1Pool());
-    	IOndaV1Pool(pair).createPool(_token0, _token1, _fee);
-    	emit CreatePool(_token0, _token1, pair, _fee);
-    	poolAddress[_token0][_token1] = pair;
-    	poolAddress[_token1][_token0] = pair;
-    	return pair;
+    		address pair = address(new OndaV1Pool());
+    		IOndaV1Pool(pair).createPool(_token0, _token1, _fee);
+    		emit CreatePool(_token0, _token1, pair, _fee);
+    		poolAddress[_token0][_token1] = pair;
+    		poolAddress[_token1][_token0] = pair;
+    		return pair;
 	}	
 
 	function getPoolAddress(address _token0, address _token1) public returns(address pool){
