@@ -6,11 +6,11 @@
 */
 pragma solidity >=0.8.0;
 
-import "./interface/IERC20.sol";
-import "./interface/TransferHelper.sol";
-import "./interface/Math.sol";
-import "./oToken.sol";
-contract OndaV1Pool {
+import "../interface/IERC20.sol";
+import "../interface/TransferHelper.sol";
+import "../interface/Math.sol";
+import "../token/oToken.sol";
+contract OndaV1SwapPool {
 
 	address private factory;
 
@@ -33,7 +33,7 @@ contract OndaV1Pool {
 	bytes4 private constant MINT_ACTION = bytes4(keccak256(bytes('mint(address,uint256)')));
 	bytes4 private constant BURN_ACTION = bytes4(keccak256(bytes('burn(address,uint256)')));
 
-	event AddLiquidity(address token0, address token1, address _to, uint amount0, uint amount1);
+	event AddLiquidity(address token0, address token1, address _to, uint amount);
 	event DeleteLiquidity(address token0, address token1, address _to, uint liquidity);
 	event SwapToken(address token0, address token1, address _to, uint amount0, uint amount1);
 	event SyncStorage(address token0, address token1, uint newBalance0, uint newBalance1);
@@ -101,12 +101,13 @@ contract OndaV1Pool {
 		return k;
 	}
 
-	function _addLiquidity(address _token0, address _token1, address _to, uint amount0, uint amount1) public returns (bool) {
+	function _addLiquidity(address _token0, address _token1, address _to, uint amount) public returns (bool) {
 		(uint balanceContract0, uint balanceContract1) = getBalancePool();
 		require(_token0 == token0 && _token1 == token1, 'Not used address');
-		require(amount0 == amount1, 'Not equal');
-		TransferHelper.safeTransferFrom(_token0, _to, address(this), amount0);
-        TransferHelper.safeTransferFrom(_token1, _to, address(this), amount1);
+		//TransferHelper.safeTransferFrom(_token0, _to, address(this), amount0);
+        //TransferHelper.safeTransferFrom(_token1, _to, address(this), amount1);
+        IERC20(_token0).transferFrom(_to, address(this), amount);
+        IERC20(_token1).transferFrom(_to, address(this), amount);
 
         uint _balance0 = IERC20(_token0).balanceOf(address(this));
 	    uint _balance1 = IERC20(_token1).balanceOf(address(this));
@@ -123,10 +124,8 @@ contract OndaV1Pool {
 	        mint(lp, _to, liquidity);
 	    }
 	    totalSupply+=liquidity;
-        uint256 balance0 = IERC20(_token0).balanceOf(address(this));
-        uint256 balance1 = IERC20(_token1).balanceOf(address(this));
-        _updateStorage(_token0, _token1, balance0, balance1);
-        emit AddLiquidity(_token0, _token1, _to, amount0, amount1);
+        _updateStorage(_token0, _token1, _balance0, _balance1);
+        emit AddLiquidity(_token0, _token1, _to, amount);
         return true;
 	}
 
@@ -159,12 +158,12 @@ contract OndaV1Pool {
 		uint fee_token0 = (amount0 * fee) / 1000;
 		uint fee_token1 = (amount1 * fee) / 1000;
 		if (amount0 > 0 && amount1 == 0) {
-			TransferHelper.safeTransferFrom(_token1, _to, address(this), ((amount0 + fee_token0)*price0) / 1000000);
-			TransferHelper.safeTransfer(_token0, _to, amount0);
+			IERC20(_token0).transferFrom(_to, address(this), ((amount0 + fee_token0)*price0) / 1000000);
+        	IERC20(_token1).transferFrom(address(this), _to, amount0);
 		}
         if (amount1 > 0 && amount0 == 0) {
-        	TransferHelper.safeTransferFrom(_token0, _to, address(this), ((amount1 + fee_token1)*price1) / 1000000);
-        	TransferHelper.safeTransfer(_token1, _to, amount1);
+        	IERC20(_token0).transferFrom(address(this), _to, amount1);
+        	IERC20(_token1).transferFrom(_to, address(this), ((amount1 + fee_token1)*price1) / 1000000);
         }
         uint newBalance0 = IERC20(_token0).balanceOf(address(this));
 		uint newBalance1 = IERC20(_token1).balanceOf(address(this));

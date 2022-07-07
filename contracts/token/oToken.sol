@@ -1,8 +1,8 @@
 pragma solidity ^0.8.0;
 
-import "./interface/IERC20.sol";
-import "./interface/IERC20Meta.sol";
-import "./interface/Context.sol";
+import "../interface/IERC20.sol";
+import "../interface/IERC20Meta.sol";
+import "../interface/Context.sol";
 
 contract oToken is Context, IERC20, IERC20Metadata {
     mapping(address => uint256) private _balances;
