@@ -1,3 +1,6 @@
+/*
+        ================= Use ganache for testing =================
+*/
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
