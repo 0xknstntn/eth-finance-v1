@@ -1,27 +1,4 @@
 # Onda Finance
-This repository contains the smart contracts for the Onda Finance V1 Protocol.
+This repository contains the smart contracts for the Onda Finance.
 
-## status
-
-| Feature Pool                                                                                                   | Status |
-|------------------------------------------------------------------------------------------------------------|--------|
-| Swap ERC20 to ERC20                                                                                        | ✅      |
-| Add liquidity                                                                                              | ✅      |
-| Update storage                                                                                   | ✅      |
-| Update price                                                                                                | ✅      |
-| Delete liquidity                                                                                           | ✅      |
-
-
-
-| Feature Router                                                                                                   | Status |
-|------------------------------------------------------------------------------------------------------------|--------|
-| Swap ERC20 to ERC20                                                                                        | ✅      |
-| Add liquidity                                                                                              | ✅      |
-| Delete liquidity                                                                                           | ✅      |
-
-
-
-| Feature Factory                                                                                                   | Status |
-|------------------------------------------------------------------------------------------------------------|--------|
-| Create pool                                                                                        | ✅      |
-
+![Untitled Diagram drawio (4)](https://user-images.githubusercontent.com/86096361/177865293-d8c9bf6b-40c6-4c6a-86cf-89d50ea9b734.png)
