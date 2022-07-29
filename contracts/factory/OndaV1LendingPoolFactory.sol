@@ -33,11 +33,11 @@ contract OndaV1LendingPoolFactory {
 		require(router != address(0), 'Router not exist');
 		require((_stablecoin != address(0)), 'Zero address');
 		require(msg.sender == creator, 'Not a creator');
-    	address lendingPool = address(new OndaV1LendingPool());
-    	IOndaV1LendingPool(lendingPool).createLendingPool(_stablecoin, router);
-    	emit CreateLendingPool(_stablecoin, lendingPool);
-    	lendingPoolAddress[_stablecoin] = lendingPool;
-    	return lendingPool;
+		address lendingPool = address(new OndaV1LendingPool());
+		IOndaV1LendingPool(lendingPool).createLendingPool(_stablecoin, router);
+		emit CreateLendingPool(_stablecoin, lendingPool);
+		lendingPoolAddress[_stablecoin] = lendingPool;
+		return lendingPool;
 	}	
 
 	function getLendingPoolAddress(address _token0) public returns(address){
