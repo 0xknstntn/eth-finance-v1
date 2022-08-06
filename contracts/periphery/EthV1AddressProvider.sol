@@ -1,6 +1,6 @@
 pragma solidity >=0.8.0;
 
-contract OndaV1AddressProvider {
+contract EthV1AddressProvider {
 	address private lendingPoolFactory;
 	address private swapPoolFactory;
 
