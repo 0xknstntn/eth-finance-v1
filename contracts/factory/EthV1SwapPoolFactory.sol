@@ -1,17 +1,17 @@
 /*
-	@org Onda.finance
+	@org Eth.finance
 	@verison v1.0 
-	@notice Onda.finance Factory 
+	@notice Eth.finance Factory 
 	@dev Konstantin Klyuchnikov
 */
 
 pragma solidity >=0.8.0;
 
-import "../interface/IOndaV1SwapPool.sol";
-import "../pool/OndaV1SwapPool.sol";
-import "../periphery/OndaV1Router.sol";
+import "../interface/IEthV1SwapPool.sol";
+import "../pool/EthV1SwapPool.sol";
+import "../periphery/EthV1Router.sol";
 
-contract OndaV1SwapPoolFactory {
+contract EthV1SwapPoolFactory {
 
 	mapping(address => mapping(address => address)) public poolAddress;
 	mapping(address => mapping(address => address)) public lendingPoolAddress;
@@ -28,8 +28,8 @@ contract OndaV1SwapPoolFactory {
 	function createSwapPool(address _token0, address _token1, uint _fee) public returns(address pair){
 		require(_token0 != _token1, 'Equal address');
 		require((_token0 != address(0)) && (_token1 != address(0)), 'Zero address');
-    		address pair = address(new OndaV1SwapPool());
-    		IOndaV1Pool(pair).createPool(_token0, _token1, _fee);
+    		address pair = address(new EthV1SwapPool());
+    		IEthV1SwapPool(pair).createPool(_token0, _token1, _fee);
     		emit CreatePool(_token0, _token1, pair, _fee);
     		poolAddress[_token0][_token1] = pair;
     		poolAddress[_token1][_token0] = pair;

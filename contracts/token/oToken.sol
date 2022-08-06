@@ -16,8 +16,8 @@ contract oToken is Context, IERC20, IERC20Metadata {
     address public _pool;
 
     constructor(address _pool_) {
-        _name = "Onda.fi oDAI/USDT";
-        _symbol = "Onda.fi oDAI/USDT";
+        _name = "Eth.fi oDAI/USDT";
+        _symbol = "Eth.fi oDAI/USDT";
         _pool = _pool_;
     }
 

@@ -1,17 +1,17 @@
 /*
-	@org Onda.finance
+	@org eth.finance
 	@verison v1.0 
-	@notice Onda.finance Factory 
+	@notice eth.finance Factory 
 	@dev Konstantin Klyuchnikov
 */
 
 pragma solidity >=0.8.0;
 
-import "../interface/IOndaV1LendingPool.sol";
-import "../pool/OndaV1LendingPool.sol";
-import "../periphery/OndaV1Router.sol";
+import "../interface/IEthV1LendingPool.sol";
+import "../pool/EthV1LendingPool.sol";
+import "../periphery/EthV1Router.sol";
 
-contract OndaV1LendingPoolFactory {
+contract EthV1LendingPoolFactory {
 
 	mapping(address => address) public lendingPoolAddress;
 
@@ -33,8 +33,8 @@ contract OndaV1LendingPoolFactory {
 		require(router != address(0), 'Router not exist');
 		require((_stablecoin != address(0)), 'Zero address');
 		require(msg.sender == creator, 'Not a creator');
-		address lendingPool = address(new OndaV1LendingPool());
-		IOndaV1LendingPool(lendingPool).createLendingPool(_stablecoin, router);
+		address lendingPool = address(new EthV1LendingPool());
+		IEthV1LendingPool(lendingPool).createLendingPool(_stablecoin, router);
 		emit CreateLendingPool(_stablecoin, lendingPool);
 		lendingPoolAddress[_stablecoin] = lendingPool;
 		return lendingPool;

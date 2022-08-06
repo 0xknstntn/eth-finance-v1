@@ -1,6 +1,6 @@
 pragma solidity >=0.8.0;
 
-interface IOndaV1Pool {
+interface IEthV1Pool {
 	event AddLiquidity(address token0, address token1, address _to, uint amount);
 	event DeleteLiquidity(address token0, address token1, address _to, uint liquidity);
 	event SwapToken(address token0, address token1, address _to, uint amount0, uint amount1);

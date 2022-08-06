@@ -42,7 +42,7 @@ datetext = d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
 
 console.log()
 console.log("@dev Konstantin Kljuchnikov");
-console.log("@notice Onda Finance");
+console.log("@notice Eth Finance");
 console.log(`@datetime ${datetext}`);
 let provider = new ethers.providers.JsonRpcProvider();
 describe("Swap Pool Test", function () {
@@ -63,25 +63,25 @@ describe("Swap Pool Test", function () {
                 GlobalUSDT = USDTdeployed;
         });
         it("Deploy SwapPoolFactory", async function () {
-                const SwapPoolFactory = await ethers.getContractFactory("OndaV1SwapPoolFactory");
+                const SwapPoolFactory = await ethers.getContractFactory("EthV1SwapPoolFactory");
                 const SwapPoolFactoryDeployed = await SwapPoolFactory.deploy();
                 SwapPoolFactoryAddress = SwapPoolFactoryDeployed.address;
                 GlobalSwapPoolFactory = SwapPoolFactoryDeployed;
         });
         it("Deploy LendingPoolFactory", async function () {
-                const LendingPoolFactory = await ethers.getContractFactory("OndaV1LendingPoolFactory");
+                const LendingPoolFactory = await ethers.getContractFactory("EthV1LendingPoolFactory");
                 const LendingPoolFactoryDeployed = await LendingPoolFactory.deploy();
                 LendingPoolFactoryAddress = LendingPoolFactoryDeployed.address;
                 GlobalLendingPoolFactory = LendingPoolFactoryDeployed;
         });
         it("Deploy Address provider", async function () {
-                const provider = await ethers.getContractFactory("OndaV1AddressProvider");
+                const provider = await ethers.getContractFactory("EthV1AddressProvider");
                 const ProviderDeployed = await provider.deploy(LendingPoolFactoryAddress, SwapPoolFactoryAddress);
                 ProviderAddress = ProviderDeployed.address;
                 GlobalProvider = ProviderDeployed;
         });
         it("Deploy Router", async function () {
-                const Router = await ethers.getContractFactory("OndaV1Router");
+                const Router = await ethers.getContractFactory("EthV1Router");
                 const RouterDeployed = await Router.deploy(ProviderAddress);
                 RouterAddress = RouterDeployed.address;
                 GlobalRouter = RouterDeployed;
@@ -94,17 +94,17 @@ describe("Swap Pool Test", function () {
                 expect(await GlobalLendingPoolFactory.router()).to.equal(RouterAddress);
         });
         it("Create New Swap Pool", async function(){
-                const { abi } = require('../artifacts/contracts/pool/OndaV1SwapPool.sol/OndaV1SwapPool.json');
+                const { abi } = require('../artifacts/contracts/pool/EthV1SwapPool.sol/EthV1SwapPool.json');
                 const tx = await GlobalSwapPoolFactory.connect(addr1).createSwapPool(DAIAddress, USDTAddress, 40);
                 SwapPoolAddress = await GlobalSwapPoolFactory.callStatic.getSwapPoolAddress(DAIAddress, USDTAddress);
                 GlobalSwapPool = new ethers.Contract(SwapPoolAddress, abi, provider);
         });
         it("Create New Lending Pool With none-zero Router", async function() {
-                const { abi } = require('../artifacts/contracts/pool/OndaV1LendingPool.sol/OndaV1LendingPool.json');
+                const { abi } = require('../artifacts/contracts/pool/EthV1LendingPool.sol/EthV1LendingPool.json');
                 await GlobalLendingPoolFactory.connect(owner).createLendingPool(DAIAddress);
         });
         it("Get global lending pool", async function(){
-                const { abi } = require('../artifacts/contracts/pool/OndaV1LendingPool.sol/OndaV1LendingPool.json');
+                const { abi } = require('../artifacts/contracts/pool/EthV1LendingPool.sol/EthV1LendingPool.json');
                 LendPoolAddress = await GlobalLendingPoolFactory.callStatic.getLendingPoolAddress(DAIAddress);
                 GlobalLendPool = new ethers.Contract(LendPoolAddress, abi, provider);
         });

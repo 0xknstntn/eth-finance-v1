@@ -10,7 +10,7 @@ import "../interface/IERC20.sol";
 import "../interface/TransferHelper.sol";
 import "../interface/Math.sol";
 import "../token/oToken.sol";
-contract OndaV1SwapPool {
+contract EthV1SwapPool {
 
 	address private factory;
 

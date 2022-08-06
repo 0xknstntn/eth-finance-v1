@@ -9,7 +9,7 @@ interface IFlashLoanReceiver {
     function execute() external payable;
 }
 
-contract OndaV1LendingPool {
+contract EthV1LendingPool {
 
     address public factory;
     address public router;
