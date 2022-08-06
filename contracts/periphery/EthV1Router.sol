@@ -1,7 +1,7 @@
 /*
-	@org Onda.finance
+	@org eth.finance
 	@verison v1.0 
-	@notice Onda.finance Router 
+	@notice eth.finance Router 
 	@dev Konstantin Klyuchnikov
 */
 
