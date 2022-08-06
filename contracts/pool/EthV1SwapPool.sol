@@ -1,7 +1,7 @@
 /*
-	@Onda.finance
+	@eth.finance
 	@verison v1.0 
-	@notice Onda.finance Pool 
+	@notice eth.finance Pool 
 	@dev Konstantin Klyuchnikov
 */
 pragma solidity >=0.8.0;
